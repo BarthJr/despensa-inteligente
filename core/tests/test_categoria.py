@@ -12,7 +12,7 @@ def create_despensa():
 
 
 @pytest.fixture
-def client(create_despensa):
+def client():
     client = APIClient()
     return client
 
@@ -29,7 +29,20 @@ def test_status_code(client):
 
 
 @pytest.mark.django_db
-def test_categoria(client):
+def test_get_categorias(create_despensa, client):
     expect = {'id': 1, 'nome': 'Congelados'}
     resp = client.get('/categorias/')
     assert resp.data[0] == expect
+
+
+@pytest.mark.django_db
+def test_post_status_code_categorias(client):
+    resp = client.post('/categorias/', {'nome': 'Higiene'})
+    assert resp.status_code == status.HTTP_201_CREATED
+
+
+@pytest.mark.django_db
+def test_post_categorias(client):
+    expect = {'id': 1, 'nome': 'Higiene'}
+    resp = client.post('/categorias/', {'nome': 'Higiene'})
+    assert resp.data == expect
