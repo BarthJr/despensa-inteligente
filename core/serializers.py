@@ -18,4 +18,4 @@ class MedidaSerializer(serializers.ModelSerializer):
 class ProdutoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Produto
-        fields = ('id', 'nome', 'marca', 'tipo', 'peso')
+        fields = ('id', 'nome', 'marca', 'tipo', 'peso', 'categoria')
