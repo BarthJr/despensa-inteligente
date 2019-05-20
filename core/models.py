@@ -14,3 +14,14 @@ class Medida(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+class Produto(models.Model):
+    nome = models.CharField(max_length=80)
+    marca = models.CharField(max_length=80)
+    tipo = models.CharField(max_length=80)
+    peso = models.FloatField()
+    categoria = models.ForeignKey(Categoria, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.nome
