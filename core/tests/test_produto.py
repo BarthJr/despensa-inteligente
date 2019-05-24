@@ -77,7 +77,7 @@ def test_post_produtos(client):
         'peso': 250,
         'categoria': 1
     }
-    categoria = Categoria.objects.create(nome='Doces')
+    Categoria.objects.create(nome='Doces')
     resp = client.post('/produtos/', {
         'nome': 'Chocolate',
         'marca': 'Nestle',
