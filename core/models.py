@@ -25,3 +25,11 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+class Despensa(models.Model):
+    nome = models.CharField(max_length=80)
+    localizacao = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.nome
