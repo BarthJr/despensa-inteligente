@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from core.views import CategoriaViewSet, MedidaViewSet, ProdutoViewSet, DespensaViewSet
+from core.views import CategoriaViewSet, MedidaViewSet, ProdutoViewSet, DespensaViewSet, ProdutoDespensaViewSet
 
 router = routers.DefaultRouter()
 router.register(r'categorias', CategoriaViewSet)
 router.register(r'medidas', MedidaViewSet)
 router.register(r'produtos', ProdutoViewSet)
 router.register(r'despensas', DespensaViewSet)
+router.register(r'produtos_despensas', ProdutoDespensaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

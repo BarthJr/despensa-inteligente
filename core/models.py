@@ -33,3 +33,13 @@ class Despensa(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+class ProdutoDespensa(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    despensa = models.ForeignKey(Despensa, on_delete=models.CASCADE)
+    validade = models.DateField()
+    quantidade = models.IntegerField()
+
+    def __str__(self):
+        return self.quantidade
