@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('titulo', models.CharField(max_length=80)),
                 ('modoPreparo', models.TextField()),
-                ('tempoExecucao', models.TimeField()),
+                ('tempoExecucao', models.DurationField()),
                 ('quantidade', models.IntegerField()),
                 ('cliente',
                  models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.Cliente')),
