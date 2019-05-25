@@ -72,3 +72,11 @@ class ProdutoReceita(models.Model):
 
     def __str__(self):
         return self.quantidade
+
+
+class Favorita(models.Model):
+    receita = models.ForeignKey(Receita, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.receita + ' ' + self.cliente
