@@ -27,6 +27,15 @@ class Produto(models.Model):
         return self.nome
 
 
+class Cliente(models.Model):
+    nome = models.CharField(max_length=120)
+    login = models.CharField(max_length=120)
+    senha = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nome
+
+
 class Despensa(models.Model):
     nome = models.CharField(max_length=80)
     localizacao = models.CharField(max_length=120)

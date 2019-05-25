@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from core.views import CategoriaViewSet, MedidaViewSet, ProdutoViewSet, DespensaViewSet, ProdutoDespensaViewSet
+from core.views import CategoriaViewSet, MedidaViewSet, ProdutoViewSet, DespensaViewSet, ProdutoDespensaViewSet, \
+    ClienteViewSet
 
 router = routers.DefaultRouter()
 router.register(r'categorias', CategoriaViewSet)
@@ -25,6 +26,7 @@ router.register(r'medidas', MedidaViewSet)
 router.register(r'produtos', ProdutoViewSet)
 router.register(r'despensas', DespensaViewSet)
 router.register(r'produtos_despensas', ProdutoDespensaViewSet)
+router.register(r'clientes', ClienteViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
