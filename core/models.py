@@ -63,3 +63,12 @@ class Receita(models.Model):
 
     def __str__(self):
         return self.titulo
+
+
+class ProdutoReceita(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    receita = models.ForeignKey(Receita, on_delete=models.CASCADE)
+    quantidade = models.IntegerField()
+
+    def __str__(self):
+        return self.quantidade
