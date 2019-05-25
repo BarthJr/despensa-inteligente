@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from core.views import CategoriaViewSet, MedidaViewSet, ProdutoViewSet, DespensaViewSet, ProdutoDespensaViewSet, \
-    ClienteViewSet
+    ClienteViewSet, ReceitaViewSet
 
 router = routers.DefaultRouter()
 router.register(r'categorias', CategoriaViewSet)
@@ -27,6 +27,7 @@ router.register(r'produtos', ProdutoViewSet)
 router.register(r'despensas', DespensaViewSet)
 router.register(r'produtos_despensas', ProdutoDespensaViewSet)
 router.register(r'clientes', ClienteViewSet)
+router.register(r'receitas', ReceitaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

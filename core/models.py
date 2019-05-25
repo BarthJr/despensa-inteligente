@@ -52,3 +52,14 @@ class ProdutoDespensa(models.Model):
 
     def __str__(self):
         return self.quantidade
+
+
+class Receita(models.Model):
+    titulo = models.CharField(max_length=80)
+    modoPreparo = models.TextField()
+    tempoExecucao = models.TimeField()
+    quantidade = models.IntegerField()
+    cliente = models.ForeignKey(Cliente, null=True, on_delete=models.SET_NULL)
+
+    def __str__(self):
+        return self.titulo
