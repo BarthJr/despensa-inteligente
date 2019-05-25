@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 
-from core.models import Categoria, Medida, Produto, Despensa, ProdutoDespensa, Cliente
+from core.models import Categoria, Medida, Produto, Despensa, ProdutoDespensa, Cliente, Receita
 from core.serializers import CategoriaSerializer, MedidaSerializer, \
-    ProdutoSerializer, DespensaSerializer, ProdutoDespensaSerializer, ClienteSerializer
+    ProdutoSerializer, DespensaSerializer, ProdutoDespensaSerializer, ClienteSerializer, ReceitaSerializer
 
 
 class CategoriaViewSet(viewsets.ModelViewSet):
@@ -33,3 +33,8 @@ class DespensaViewSet(viewsets.ModelViewSet):
 class ProdutoDespensaViewSet(viewsets.ModelViewSet):
     queryset = ProdutoDespensa.objects.all()
     serializer_class = ProdutoDespensaSerializer
+
+
+class ReceitaViewSet(viewsets.ModelViewSet):
+    queryset = Receita.objects.all()
+    serializer_class = ReceitaSerializer
