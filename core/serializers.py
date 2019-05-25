@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.models import Categoria, Medida, Produto, Despensa, ProdutoDespensa, Cliente, Receita
+from core.models import Categoria, Medida, Produto, Despensa, ProdutoDespensa, Cliente, Receita, ProdutoReceita
 
 
 class CategoriaSerializer(serializers.ModelSerializer):
@@ -43,3 +43,9 @@ class ReceitaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Receita
         fields = ('id', 'titulo', 'modoPreparo', 'tempoExecucao', 'quantidade', 'cliente')
+
+
+class ProdutoReceitaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProdutoReceita
+        fields = ('id', 'produto', 'receita', 'quantidade')
