@@ -1,6 +1,6 @@
 import django_filters
 
-from core.models import Cliente, Despensa
+from core.models import Cliente, Despensa, Produto
 
 
 class ClienteFilter(django_filters.FilterSet):
@@ -17,3 +17,11 @@ class DespensaFilter(django_filters.FilterSet):
     class Meta:
         model = Despensa
         fields = ['nome', 'localizacao']
+
+
+class ProdutoFilter(django_filters.FilterSet):
+    nome = django_filters.CharFilter(lookup_expr='icontains')
+
+    class Meta:
+        model = Produto
+        fields = ['nome', 'marca', 'tipo', 'peso']
