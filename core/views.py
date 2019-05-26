@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from core.filters import ClienteFilter, DespensaFilter
+from core.filters import ClienteFilter, DespensaFilter, ProdutoFilter
 from core.models import Categoria, Medida, Produto, Despensa, ProdutoDespensa, Cliente, Receita, ProdutoReceita, \
     Favorita
 from core.serializers import CategoriaSerializer, MedidaSerializer, \
@@ -21,6 +21,7 @@ class MedidaViewSet(viewsets.ModelViewSet):
 class ProdutoViewSet(viewsets.ModelViewSet):
     queryset = Produto.objects.all()
     serializer_class = ProdutoSerializer
+    filter_class = ProdutoFilter
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
