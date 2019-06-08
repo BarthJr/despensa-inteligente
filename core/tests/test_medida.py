@@ -5,12 +5,25 @@ from rest_framework.test import APIClient
 from core.models import Medida
 
 
-@pytest.fixture
-def create_medida():
-    medida = {
+@pytest.fixture()
+def medida():
+    return {
         'nome': 'Litros',
         'valor': 1
     }
+
+
+@pytest.fixture()
+def expected_medida():
+    return {
+        'id': 1,
+        'nome': 'Litros',
+        'valor': 1
+    }
+
+
+@pytest.fixture
+def create_medida(medida):
     Medida.objects.create(nome=medida.get('nome'), valor=medida.get('valor'))
 
 
@@ -32,20 +45,18 @@ def test_status_code(client):
 
 
 @pytest.mark.django_db
-def test_get_medidas(create_medida, client):
-    expect = {'id': 1, 'nome': 'Litros', 'valor': 1}
+def test_get_medidas(create_medida, client, expected_medida):
     resp = client.get('/medidas/')
-    assert resp.data[0] == expect
+    assert resp.data[0] == expected_medida
 
 
 @pytest.mark.django_db
-def test_post_status_code_medidas(client):
-    resp = client.post('/medidas/', {'nome': 'Litros', 'valor': 1})
+def test_post_status_code_medidas(client, medida):
+    resp = client.post('/medidas/', medida)
     assert resp.status_code == status.HTTP_201_CREATED
 
 
 @pytest.mark.django_db
-def test_post_medidas(client):
-    expect = {'id': 1, 'nome': 'Litros', 'valor': 1}
-    resp = client.post('/medidas/', {'nome': 'Litros', 'valor': 1})
-    assert resp.data == expect
+def test_post_medidas(client, medida, expected_medida):
+    resp = client.post('/medidas/', medida)
+    assert resp.data == expected_medida
