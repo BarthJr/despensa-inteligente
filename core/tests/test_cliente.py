@@ -14,8 +14,6 @@ def cliente():
     }
 
 
-
-
 @pytest.fixture()
 def expected_cliente():
     return {
