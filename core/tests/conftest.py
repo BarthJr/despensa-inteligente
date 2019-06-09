@@ -187,3 +187,32 @@ def expected_favorita(cliente):
         'receita': 1,
         'cliente': 1
     }
+
+
+@pytest.fixture()
+def fazer_receita(receita, cliente):
+    receita = Receita.objects.create(**receita)
+    return {
+        'receita': receita.pk,
+        'cliente': receita.cliente.pk
+    }
+
+
+@pytest.fixture()
+def expected_fazer_receita(cliente):
+    return [
+        {
+            'id': 2,
+            'produto': 1,
+            'despensa': 1,
+            'validade': '2019-08-10',
+            'quantidade': 1
+        },
+        {
+            'id': 1,
+            'produto': 1,
+            'despensa': 1,
+            'validade': '2019-10-29',
+            'quantidade': 2
+        },
+    ]
