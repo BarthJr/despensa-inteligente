@@ -1,6 +1,6 @@
 import pytest
 
-from core.models import Cliente, Receita
+from core.models import Cliente, Receita, Produto, Despensa, Categoria
 
 
 @pytest.fixture()
@@ -69,6 +69,38 @@ def expected_produto():
         'tipo': 'Meio Amargo',
         'peso': 250,
         'categoria': 1
+    }
+
+@pytest.fixture()
+def produto_despensa_obj(produto, despensa):
+    produto['categoria'] = Categoria.objects.create(nome='Doces')
+    produto_obj = Produto.objects.create(**produto)
+    despensa_obj = Despensa.objects.create(**despensa)
+    return {
+        'produto': produto_obj,
+        'despensa': despensa_obj,
+        'validade': '2019-10-29',
+        'quantidade': 2
+    }
+
+@pytest.fixture()
+def produto_despensa():
+    return {
+        'produto': 1,
+        'despensa': 1,
+        'validade': '2019-10-29',
+        'quantidade': 2
+    }
+
+
+@pytest.fixture()
+def expected_produto_despensa():
+    return {
+        'id': 1,
+        'produto': 1,
+        'despensa': 1,
+        'validade': '2019-10-29',
+        'quantidade': 2
     }
 
 
