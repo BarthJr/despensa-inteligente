@@ -50,6 +50,29 @@ def expected_despensa():
 
 
 @pytest.fixture()
+def produto():
+    return {
+        'nome': 'Chocolate',
+        'marca': 'Nestle',
+        'tipo': 'Meio Amargo',
+        'peso': 250,
+        'categoria': 1
+    }
+
+
+@pytest.fixture()
+def expected_produto():
+    return {
+        'id': 1,
+        'nome': 'Chocolate',
+        'marca': 'Nestle',
+        'tipo': 'Meio Amargo',
+        'peso': 250,
+        'categoria': 1
+    }
+
+
+@pytest.fixture()
 def receita(cliente):
     clienteObj = Cliente.objects.create(**cliente)
     return {

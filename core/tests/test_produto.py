@@ -6,15 +6,9 @@ from core.models import Produto, Categoria
 
 
 @pytest.fixture
-def create_produto():
-    categoria = Categoria.objects.create(nome='Doces')
-    produto = {
-        'nome': 'Chocolate',
-        'marca': 'Nestle',
-        'tipo': 'Meio Amargo',
-        'peso': 250,
-        'categoria': categoria
-    }
+def create_produto(produto):
+    categoria_obj = Categoria.objects.create(nome='Doces')
+    produto['categoria'] = categoria_obj
     Produto.objects.create(nome=produto.get('nome'),
                            marca=produto.get('marca'),
                            tipo=produto.get('tipo'),
@@ -41,48 +35,20 @@ def test_status_code(client):
 
 
 @pytest.mark.django_db
-def test_get_produtos(create_produto, client):
-    expect = {
-        'id': 1,
-        'nome': 'Chocolate',
-        'marca': 'Nestle',
-        'tipo': 'Meio Amargo',
-        'peso': 250,
-        'categoria': 1
-    }
+def test_get_produtos(create_produto, client, expected_produto):
     resp = client.get('/produtos/')
-    assert resp.data[0] == expect
+    assert resp.data[0] == expected_produto
 
 
 @pytest.mark.django_db
-def test_post_status_code_produtos(client):
+def test_post_status_code_produtos(client, produto):
     Categoria.objects.create(nome='Doces')
-    resp = client.post('/produtos/', {
-        'nome': 'Chocolate',
-        'marca': 'Nestle',
-        'tipo': 'Meio Amargo',
-        'peso': 250,
-        'categoria': 1
-    })
+    resp = client.post('/produtos/', produto)
     assert resp.status_code == status.HTTP_201_CREATED
 
 
 @pytest.mark.django_db
-def test_post_produtos(client):
-    expect = {
-        'id': 1,
-        'nome': 'Chocolate',
-        'marca': 'Nestle',
-        'tipo': 'Meio Amargo',
-        'peso': 250,
-        'categoria': 1
-    }
+def test_post_produtos(client, produto, expected_produto):
     Categoria.objects.create(nome='Doces')
-    resp = client.post('/produtos/', {
-        'nome': 'Chocolate',
-        'marca': 'Nestle',
-        'tipo': 'Meio Amargo',
-        'peso': 250,
-        'categoria': 1
-    })
-    assert resp.data == expect
+    resp = client.post('/produtos/', produto)
+    assert resp.data == expected_produto
