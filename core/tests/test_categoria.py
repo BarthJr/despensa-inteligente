@@ -6,7 +6,7 @@ from core.models import Categoria
 
 
 @pytest.fixture
-def create_despensa():
+def create_categoria():
     nome = 'Congelados'
     Categoria.objects.create(nome=nome)
 
@@ -18,7 +18,7 @@ def client():
 
 
 @pytest.mark.django_db
-def test_categoria_create(create_despensa):
+def test_categoria_create(create_categoria):
     assert Categoria.objects.exists()
 
 
@@ -29,20 +29,18 @@ def test_status_code(client):
 
 
 @pytest.mark.django_db
-def test_get_categorias(create_despensa, client):
-    expect = {'id': 1, 'nome': 'Congelados'}
+def test_get_categorias(create_categoria, client, expected_categoria):
     resp = client.get('/categorias/')
-    assert resp.data[0] == expect
+    assert resp.data[0] == expected_categoria
 
 
 @pytest.mark.django_db
-def test_post_status_code_categorias(client):
-    resp = client.post('/categorias/', {'nome': 'Higiene'})
+def test_post_status_code_categorias(client, categoria):
+    resp = client.post('/categorias/', categoria)
     assert resp.status_code == status.HTTP_201_CREATED
 
 
 @pytest.mark.django_db
-def test_post_categorias(client):
-    expect = {'id': 1, 'nome': 'Higiene'}
-    resp = client.post('/categorias/', {'nome': 'Higiene'})
-    assert resp.data == expect
+def test_post_categorias(client, expected_categoria, categoria):
+    resp = client.post('/categorias/', categoria)
+    assert resp.data == expected_categoria

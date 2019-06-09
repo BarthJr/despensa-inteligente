@@ -6,14 +6,8 @@ from core.models import Despensa, Categoria
 
 
 @pytest.fixture
-def create_despensa():
-    despensa = {
-        'nome': 'Casa',
-        'localizacao': 'Tangamandapio',
-    }
-    Despensa.objects.create(nome=despensa.get('nome'),
-                            localizacao=despensa.get('localizacao'),
-                            )
+def create_despensa(despensa):
+    Despensa.objects.create(nome=despensa.get('nome'), localizacao=despensa.get('localizacao'))
 
 
 @pytest.fixture
@@ -34,35 +28,19 @@ def test_status_code(client):
 
 
 @pytest.mark.django_db
-def test_get_despensas(create_despensa, client):
-    expected = {
-        'id': 1,
-        'nome': 'Casa',
-        'localizacao': 'Tangamandapio',
-    }
+def test_get_despensas(create_despensa, client, expected_despensa):
     resp = client.get('/despensas/')
-    assert resp.data[0] == expected
+    assert resp.data[0] == expected_despensa
 
 
 @pytest.mark.django_db
-def test_post_status_code_despensas(client):
+def test_post_status_code_despensas(client, despensa):
     Categoria.objects.create(nome='Doces')
-    resp = client.post('/despensas/', {
-        'nome': 'Casa',
-        'localizacao': 'Tangamandapio',
-    })
+    resp = client.post('/despensas/', despensa)
     assert resp.status_code == status.HTTP_201_CREATED
 
 
 @pytest.mark.django_db
-def test_post_despensas(client):
-    expected = {
-        'id': 1,
-        'nome': 'Casa',
-        'localizacao': 'Tangamandapio',
-    }
-    resp = client.post('/despensas/', {
-        'nome': 'Casa',
-        'localizacao': 'Tangamandapio',
-    })
-    assert resp.data == expected
+def test_post_despensas(client, despensa, expected_despensa):
+    resp = client.post('/despensas/', despensa)
+    assert resp.data == expected_despensa

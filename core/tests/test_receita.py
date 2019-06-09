@@ -2,19 +2,11 @@ import pytest
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from core.models import Receita, Cliente
+from core.models import Receita
 
 
 @pytest.fixture
-def create_receita():
-    cliente = Cliente.objects.create(nome='Mo', login='mo', senha='b07c153de98af7e6ecda7ebf6d1a5e25')
-    receita = {
-        'titulo': 'Fricasse de Frango',
-        'modoPreparo': 'Desfiar o frango, bater os ingredientes liquidos, refogar no frango, distribuir o queijo',
-        'tempoExecucao': '01:30:00',
-        'quantidade': 4,
-        'cliente': cliente
-    }
+def create_receita(receita):
     Receita.objects.create(**receita)
 
 
@@ -36,48 +28,20 @@ def test_status_code(client):
 
 
 @pytest.mark.django_db
-def test_get_receitas(create_receita, client):
-    expected = {
-        'id': 1,
-        'titulo': 'Fricasse de Frango',
-        'modoPreparo': 'Desfiar o frango, bater os ingredientes liquidos, refogar no frango, distribuir o queijo',
-        'tempoExecucao': '01:30:00',
-        'quantidade': 4,
-        'cliente': 1
-    }
+def test_get_receitas(create_receita, client, expected_receita):
     resp = client.get('/receitas/')
-    assert resp.data[0] == expected
+    assert resp.data[0] == expected_receita
 
 
 @pytest.mark.django_db
-def test_post_status_code_receitas(client):
-    Cliente.objects.create(nome='Mo', login='mo', senha='b07c153de98af7e6ecda7ebf6d1a5e25')
-    resp = client.post('/receitas/', {
-        'titulo': 'Fricasse de Frango',
-        'modoPreparo': 'Desfiar o frango, bater os ingredientes liquidos, refogar no frango, distribuir o queijo',
-        'tempoExecucao': '01:30:00',
-        'quantidade': 4,
-        'cliente': 1
-    })
+def test_post_status_code_receitas(client, receita, expected_cliente):
+    receita['cliente'] = expected_cliente.get('id')
+    resp = client.post('/receitas/', receita)
     assert resp.status_code == status.HTTP_201_CREATED
 
 
 @pytest.mark.django_db
-def test_post_receitas(client):
-    expected = {
-        'id': 1,
-        'titulo': 'Fricasse de Frango',
-        'modoPreparo': 'Desfiar o frango, bater os ingredientes liquidos, refogar no frango, distribuir o queijo',
-        'tempoExecucao': '01:30:00',
-        'quantidade': 4,
-        'cliente': 1
-    }
-    Cliente.objects.create(nome='Mo', login='mo', senha='b07c153de98af7e6ecda7ebf6d1a5e25')
-    resp = client.post('/receitas/', {
-        'titulo': 'Fricasse de Frango',
-        'modoPreparo': 'Desfiar o frango, bater os ingredientes liquidos, refogar no frango, distribuir o queijo',
-        'tempoExecucao': '01:30:00',
-        'quantidade': 4,
-        'cliente': 1
-    })
-    assert resp.data == expected
+def test_post_receitas(client, receita, expected_receita, expected_cliente):
+    receita['cliente'] = expected_cliente.get('id')
+    resp = client.post('/receitas/', receita)
+    assert resp.data == expected_receita
