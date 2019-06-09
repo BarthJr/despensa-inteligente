@@ -1,5 +1,7 @@
 # despensa-inteligente
 Refactoring UFPR final paper using Python
+
+[![Build Status](https://travis-ci.com/BarthJr/despensa-inteligente.svg?token=BWopAHdmwdFzLqXw7iyM&branch=master)](https://travis-ci.com/BarthJr/despensa-inteligente)
 # Installation
 
 1. Clone the repository
