@@ -4,6 +4,16 @@ from core.models import Cliente, Receita
 
 
 @pytest.fixture()
+def categoria():
+    return {'nome': 'Congelados'}
+
+
+@pytest.fixture()
+def expected_categoria():
+    return {'id': 1, 'nome': 'Congelados'}
+
+
+@pytest.fixture()
 def cliente():
     return {
         'nome': 'Junior Barth',

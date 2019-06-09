@@ -5,16 +5,6 @@ from rest_framework.test import APIClient
 from core.models import Categoria
 
 
-@pytest.fixture()
-def categoria():
-    return {'nome': 'Congelados'}
-
-
-@pytest.fixture()
-def expected_categoria():
-    return {'id': 1, 'nome': 'Congelados'}
-
-
 @pytest.fixture
 def create_categoria():
     nome = 'Congelados'
