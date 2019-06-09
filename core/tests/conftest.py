@@ -71,6 +71,7 @@ def expected_produto():
         'categoria': 1
     }
 
+
 @pytest.fixture()
 def produto_despensa_obj(produto, despensa):
     produto['categoria'] = Categoria.objects.create(nome='Doces')
@@ -82,6 +83,7 @@ def produto_despensa_obj(produto, despensa):
         'validade': '2019-10-29',
         'quantidade': 2
     }
+
 
 @pytest.fixture()
 def produto_despensa():
@@ -100,6 +102,37 @@ def expected_produto_despensa():
         'produto': 1,
         'despensa': 1,
         'validade': '2019-10-29',
+        'quantidade': 2
+    }
+
+
+@pytest.fixture()
+def produto_receita_obj(produto, receita, cliente):
+    produto['categoria'] = Categoria.objects.create(nome='Doces')
+    produto_obj = Produto.objects.create(**produto)
+    receita_obj = Receita.objects.create(**receita)
+    return {
+        'produto': produto_obj,
+        'receita': receita_obj,
+        'quantidade': 2
+    }
+
+
+@pytest.fixture()
+def produto_receita():
+    return {
+        'produto': 1,
+        'receita': 1,
+        'quantidade': 2
+    }
+
+
+@pytest.fixture()
+def expected_produto_receita():
+    return {
+        'id': 2,
+        'produto': 1,
+        'receita': 1,
         'quantidade': 2
     }
 
