@@ -5,28 +5,9 @@ from rest_framework.test import APIClient
 from core.models import Despensa, Categoria
 
 
-@pytest.fixture()
-def despensa():
-    return {
-        'nome': 'Casa',
-        'localizacao': 'Tangamandapio',
-    }
-
-
-@pytest.fixture()
-def expected_despensa():
-    return {
-        'id': 1,
-        'nome': 'Casa',
-        'localizacao': 'Tangamandapio',
-    }
-
-
 @pytest.fixture
 def create_despensa(despensa):
-    Despensa.objects.create(nome=despensa.get('nome'),
-                            localizacao=despensa.get('localizacao'),
-                            )
+    Despensa.objects.create(nome=despensa.get('nome'), localizacao=despensa.get('localizacao'))
 
 
 @pytest.fixture

@@ -33,6 +33,23 @@ def expected_cliente():
 
 
 @pytest.fixture()
+def despensa():
+    return {
+        'nome': 'Casa',
+        'localizacao': 'Tangamandapio',
+    }
+
+
+@pytest.fixture()
+def expected_despensa():
+    return {
+        'id': 1,
+        'nome': 'Casa',
+        'localizacao': 'Tangamandapio',
+    }
+
+
+@pytest.fixture()
 def receita(cliente):
     clienteObj = Cliente.objects.create(**cliente)
     return {
